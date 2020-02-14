@@ -13,19 +13,22 @@ public class itemBox : MonoBehaviour
         {
             GetComponent<itemBox>().haveItem=true;    //itemBox的haveItem改為true
             GetComponent<Image>().color=Color.blue;   //那一格改為顯示藍色
-            itemName = collision.ToString();
+            itemName = collision.ToString();          //背包格的物品=拉進去的物品
             print(collision);
         }
         else
         {
-            collision.GetComponent<Image>().color=Color.red;    //那一格改為顯示
+            GetComponent<Shadow>().enabled=true;                         //陰影啟動
+            GetComponent<Shadow>().effectColor=new Color(1,0,0,0.5f);    //那一格陰影改為顯示紅色
+            GetComponent<Shadow>().effectDistance=new Vector2(-7,-7);    //改陰影位置
         }
     }
 
     public void OnTriggerExit2D(Collider2D collision)       //離開Trigger
     {
         GetComponent<Image>().color=Color.white;   //那一格改為顯示白色
-        if(itemName == collision.ToString())
+        GetComponent<Shadow>().enabled=false;      //陰影關閉 
+        if(itemName == collision.ToString())       //如果格子上的原物品拖走後
         {
             GetComponent<itemBox>().haveItem=false;    //itemBox的haveItem改為false
         }
@@ -35,21 +38,3 @@ public class itemBox : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-/*public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.GetComponent<itemBox>().haveItem==true)
-        {
-            GetComponent<Image>().color=Color.red;
-        }
-        else 
-        {
-            GetComponent<Image>().color=Color.blue;
-        }
-    }*/
